@@ -69,17 +69,23 @@ class _MovingWidgetState extends State<MovingWidget> {
         Positioned(
           top: 9,
             left: 38,
-            child: Text("Left", style: TextStyle(
-                color: !_isLeft
-                    ?config.lightPrimaryColor: Colors.white )
+            child: GestureDetector(
+              onTap: () => _togglePosition(),
+              child: Text("Left", style: TextStyle(
+                  color: !_isLeft
+                      ?config.lightPrimaryColor: Colors.white )
+              ),
             )
         ),
         Positioned(
             top: 9,
             right: 38,
-            child: Text("Right", style: TextStyle(
-                color: _isLeft
-                    ?config.lightPrimaryColor: Colors.white)
+            child: GestureDetector(
+              onTap: () => _togglePosition(),
+              child: Text("Right", style: TextStyle(
+                  color: _isLeft
+                      ?config.lightPrimaryColor: Colors.white)
+              ),
             )
         ),
 

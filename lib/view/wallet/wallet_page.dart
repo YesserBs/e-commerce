@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myproj/config/configuration.dart';
 
 class WalletPage extends StatelessWidget {
@@ -14,7 +15,7 @@ class WalletPage extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  height: 600.h,
+                  height: 530.h,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [Colors.white, config.lightPrimaryColor],
@@ -25,19 +26,19 @@ class WalletPage extends StatelessWidget {
                   child: Center(
                     child: Column(
                       children: [
-                        350.h.verticalSpace,
-                        Text("Available funds", style: TextStyle(fontSize: 16, color: config.secondaryColor)),
+                        270.h.verticalSpace,
+                        Text("Available funds", style: TextStyle(fontSize: 14, color: Colors.grey[700])),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               '\$',
-                              style: TextStyle(fontSize: 25, color: config.lightGrey, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 25, color: config.secondaryColor, fontWeight: FontWeight.bold),
                             ),
-                            60.w.horizontalSpace,
+                            30.w.horizontalSpace,
                             Text(
-                              '205.00',
-                              style: TextStyle(fontSize: 35, color: config.secondaryColor, fontWeight: FontWeight.bold),
+                              '421.00',
+                              style: TextStyle(fontSize: 38, color: config.secondaryColor, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -72,7 +73,8 @@ class WalletPage extends StatelessWidget {
                     child: IconButton(
                       icon: Icon(
                         CupertinoIcons.plus,
-                        color: config.secondaryColor,
+                        color: Colors.grey[700],
+                        size: 25,
                       ),
                       onPressed: () {
                         // Your onPressed action here
@@ -94,8 +96,9 @@ class WalletPage extends StatelessWidget {
                         height: 65,
                         child: IconButton(
                           icon: Icon(
-                            CupertinoIcons.plus,
-                            color: config.secondaryColor,
+                            CupertinoIcons.creditcard,
+                            color: Colors.grey[700],
+                            size: 25,
                           ),
                           onPressed: () {
                             // Your onPressed action here
@@ -118,7 +121,8 @@ class WalletPage extends StatelessWidget {
                         child: IconButton(
                           icon: Icon(
                             Icons.send,
-                            color: config.secondaryColor,
+                            color: Colors.grey[700],
+                            size: 25,
                           ),
                           onPressed: () {
                             // Your onPressed action here
@@ -130,6 +134,16 @@ class WalletPage extends StatelessWidget {
                 )
               ],
             ),
+            Row(
+              children: [
+                460.w.horizontalSpace,
+                Text("Add"),
+                710.w.horizontalSpace,
+                Text("Pay"),
+                680.w.horizontalSpace,
+                Text("Send")
+              ],
+            )
 
           ],
         ),

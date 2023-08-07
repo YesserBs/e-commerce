@@ -10,13 +10,11 @@ class HomeController extends GetxController {
   var type = "FOR YOU".obs;
   String searchedText = "";
 
-
   @override
   void onInit() {
     super.onInit();
     fetchArticles();
   }
-
 
   void fetchArticles() async {
     try {
@@ -44,7 +42,7 @@ class HomeController extends GetxController {
 
   void filterList(String value) {
 
-    if (type.value == ''){
+    if (type.value == '' || type.value == 'FOR YOU'){
       if (value.isEmpty) {
         filteredArticles.value = articles;
       } else {

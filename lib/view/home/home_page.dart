@@ -154,7 +154,7 @@ Widget _SearchFormField() {
       ),
     ),
     child: TextFormField(
-      onChanged: _controller.filterList,
+      onChanged: _controller.getSearchText,
       decoration: InputDecoration(
         border: InputBorder.none,
         prefixIcon: Icon(
@@ -342,7 +342,7 @@ GestureDetector buildTextContainer(String text) {
         HC.type.value = text;
         print(HC.type.value);
       }
-      // HC.filterList(); I have to fix this, whenever clicked the type must be updated
+      HC.filterList(HC.searchedText);
     },
     child: Container(
       width: 100,

@@ -213,7 +213,7 @@ Widget _ListItems() {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "${item.prix.toString()}.00\$",
+                                    "\$${item.prix.toString()}.00",
                                     style: TextStyle(fontWeight: FontWeight.bold, color: config.primaryColor, fontSize: 19),
                                   ),
                                   Row(

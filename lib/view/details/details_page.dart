@@ -99,7 +99,7 @@ class DetailsPage extends StatelessWidget {
                             ),
                             50.h.verticalSpace,
                             Text(
-                              "${DC.arguments.prix.toString()}\$",
+                              "\$${DC.arguments.prix.toString()}",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 26,

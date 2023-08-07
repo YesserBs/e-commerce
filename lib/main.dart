@@ -1,37 +1,89 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:myproj/config/configuration.dart';
-import 'package:myproj/main_settings/appPages.dart';
-import 'package:myproj/view/auth/auth.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  await GetStorage.init();
+void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: Size(1080, 2340));
-    return GetMaterialApp(
-      initialRoute: auth(),
-      theme: ThemeData(colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: config.secondaryColor),
+    return MaterialApp(
+      home: Scaffold(
+        body: Column(
+          children: [
+            200.h.verticalSpace,
+            MovingWidget(),
+          ],
+        ),
       ),
-      getPages: AppPages.list,
-      debugShowCheckedModeBanner: false,
     );
   }
 }
 
+class MovingWidget extends StatefulWidget {
+  @override
+  _MovingWidgetState createState() => _MovingWidgetState();
+}
 
+class _MovingWidgetState extends State<MovingWidget> {
+  bool _isLeft = false;
 
+  void _togglePosition() {
+    setState(() {
+      _isLeft = !_isLeft;
+    });
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          height: 37,
+          width: 202,
+          decoration: BoxDecoration(
+            color: config.secondaryColor,
+            borderRadius: BorderRadius.circular(8)
+          ),
+        ),
 
+        AnimatedPositioned(
+          top: 1,
+          duration: Duration(milliseconds: 450),
+          curve: Curves.easeInOut,
+          left: _isLeft ? 2.0 : 100.0,
+          child: GestureDetector(
+            onTap: _togglePosition,
+            child: Container(
+              width: 100,
+              height: 35,
+              decoration: BoxDecoration(
+                color: config.primaryColor,
+                borderRadius: BorderRadius.circular(7.0)
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 9,
+            left: 38,
+            child: Text("Left", style: TextStyle(
+                color: !_isLeft
+                    ?config.lightPrimaryColor: Colors.white )
+            )
+        ),
+        Positioned(
+            top: 9,
+            right: 38,
+            child: Text("Right", style: TextStyle(
+                color: _isLeft
+                    ?config.lightPrimaryColor: Colors.white)
+            )
+        ),
+
+      ],
+    );
+  }
+}

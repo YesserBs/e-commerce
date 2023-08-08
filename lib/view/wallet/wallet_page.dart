@@ -145,8 +145,17 @@ class WalletPage extends StatelessWidget {
                 Text("Send")
               ],
             ),
-            300.h.verticalSpace,
-            ToggleButton(leftText: 'Addings', left: 46, rightText: 'Payments', right: 38,)
+            190.h.verticalSpace,
+            ToggleButton(leftText: 'Transactions', left: 32, rightText: 'Top-ups', right: 43,),
+            200.h.verticalSpace,
+            Container(
+              height: 410,
+              width: 340,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: config.lightPrimaryColor,
+              ),
+            )
 
           ],
         ),

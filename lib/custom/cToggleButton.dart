@@ -29,12 +29,15 @@ class _ToggleButton extends State<ToggleButton> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          height: 39,
-          width: 280,
-          decoration: BoxDecoration(
-            color: config.lightPrimaryColor,
-            borderRadius: BorderRadius.circular(9),
+        GestureDetector(
+          onTap: () => _togglePosition(),
+          child: Container(
+            height: 39,
+            width: 280,
+            decoration: BoxDecoration(
+              color: config.lightPrimaryColor,
+              borderRadius: BorderRadius.circular(9),
+            ),
           ),
         ),
         AnimatedPositioned(
@@ -71,6 +74,7 @@ class _ToggleButton extends State<ToggleButton> {
               widget.leftText,
               style: TextStyle(
                 color: !_isLeft ? Colors.grey[400] : config.primaryColor,
+                  fontWeight: FontWeight.bold
               ),
             ),
           ),
@@ -84,6 +88,7 @@ class _ToggleButton extends State<ToggleButton> {
               widget.rightText,
               style: TextStyle(
                 color: _isLeft ? Colors.grey[400] : config.primaryColor,
+                  fontWeight: FontWeight.bold
               ),
             ),
           ),

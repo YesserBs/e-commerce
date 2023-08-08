@@ -8,10 +8,11 @@ class ToggleButton extends StatefulWidget {
   final double right;
   final double left;
   final double top;
+  final Function(bool) onIsLeftChanged;
 
 
   ToggleButton({this.leftText = "Left", this.rightText = "Right",
-    this.right = 55, this.left = 55, this.top = 10,});
+    this.right = 55, this.left = 55, this.top = 10, required this.onIsLeftChanged});
 
   @override
   _ToggleButton createState() => _ToggleButton();
@@ -22,6 +23,7 @@ class _ToggleButton extends State<ToggleButton> {
   void _togglePosition() {
     setState(() {
       _isLeft = !_isLeft;
+      widget.onIsLeftChanged(_isLeft);
     });
   }
 

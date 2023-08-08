@@ -1,12 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:myproj/config/configuration.dart';
 import 'package:myproj/custom/cToggleButton.dart';
+import 'package:myproj/view/wallet/wallet_controller.dart';
 
 class WalletPage extends StatelessWidget {
+  WalletController WC = Get.find();
   final yourList = ["Purchased articles: 4", "Purchased articles: 2", "Purchased articles: 4", "Purchased articles: 1"];
+  late ToggleButton TButton;
+
+  WalletPage() {
+    TButton = ToggleButton(
+      leftText: 'Transactions',
+      left: 32,
+      rightText: 'Top-ups',
+      right: 43,
+      onIsLeftChanged: WC.GetIsLeft,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -148,53 +162,87 @@ class WalletPage extends StatelessWidget {
               ],
             ),
             190.h.verticalSpace,
-            ToggleButton(leftText: 'Transactions', left: 32, rightText: 'Top-ups', right: 43,),
+            TButton,
             200.h.verticalSpace,
-            Container(
-              height: 410,
-              width: 340,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                //color: config.lightRed,
-              ),
-              child: ListView.builder(
-                itemCount: yourList.length, // Replace with the actual number of elements in your list
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    margin: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
-                    padding: EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,boxShadow: [
-                      BoxShadow(
-                        color: config.lightPrimaryColor, // Shadow color
-                        spreadRadius: 1, // How much the shadow spreads
-                        blurRadius: 2,   // The blur effect of the shadow
-                        offset: Offset(0.5, 0.5), // Offset in x and y direction
-                      ),
-                    ],
 
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          yourList[index], // Replace with your actual data
-                          style: TextStyle(fontSize: 15, ),
-                        ),
-                        Text(
-                          "08/08/2023", // Replace with your actual data
-                          style: TextStyle(fontSize: 15, color: config.primaryColor),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+            Obx(() =>
+                Container(
+                  height: 410,
+                  width: 340,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    //color: config.lightRed,
+                  ),
+                  child: ListView.builder(
+                    itemCount:
+                    WC.isLeft.value
+                        ? yourList.length
+                        : yourList.length-3,
+                    itemBuilder: (BuildContext context, int index) {
+                      return
+                        WC.isLeft.value
+                            ? Container(
+                          margin: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+                          padding: EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,boxShadow: [
+                            BoxShadow(
+                              color: config.lightPrimaryColor, // Shadow color
+                              spreadRadius: 1, // How much the shadow spreads
+                              blurRadius: 2,   // The blur effect of the shadow
+                              offset: Offset(0.5, 0.5), // Offset in x and y direction
+                            ),
+                          ],
+
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                yourList[index], // Replace with your actual data
+                                style: TextStyle(fontSize: 15, ),
+                              ),
+                              Text(
+                                "08/08/2023", // Replace with your actual data
+                                style: TextStyle(fontSize: 15, color: config.primaryColor),
+                              ),
+                            ],
+                          ),
+                        )
+                            : Container(
+                          margin: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+                          padding: EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,boxShadow: [
+                            BoxShadow(
+                              color: config.lightPrimaryColor, // Shadow color
+                              spreadRadius: 1, // How much the shadow spreads
+                              blurRadius: 2,   // The blur effect of the shadow
+                              offset: Offset(0.5, 0.5), // Offset in x and y direction
+                            ),
+                          ],
+
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                yourList[index], // Replace with your actual data
+                                style: TextStyle(fontSize: 15, ),
+                              ),
+                              Text(
+                                "08/08/2023", // Replace with your actual data
+                                style: TextStyle(fontSize: 15, color: config.primaryColor),
+                              ),
+                            ],
+                          ),
+                        );
+                    },
+                  ),
+                )
             )
-
-
-
           ],
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myproj/config/configuration.dart';
+import 'package:myproj/custom/cToggleButton.dart';
 
 class WalletPage extends StatelessWidget {
   @override
@@ -143,7 +144,9 @@ class WalletPage extends StatelessWidget {
                 680.w.horizontalSpace,
                 Text("Send")
               ],
-            )
+            ),
+            300.h.verticalSpace,
+            ToggleButton(leftText: 'Addings', left: 46, rightText: 'Payments', right: 38,)
 
           ],
         ),

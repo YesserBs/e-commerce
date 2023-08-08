@@ -33,7 +33,7 @@ class _ToggleButton extends State<ToggleButton> {
           height: 39,
           width: 280,
           decoration: BoxDecoration(
-            color: Colors.grey[300],
+            color: config.lightPrimaryColor,
             borderRadius: BorderRadius.circular(9),
           ),
         ),
@@ -52,7 +52,7 @@ class _ToggleButton extends State<ToggleButton> {
                 borderRadius: BorderRadius.circular(9),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey, // Shadow color
+                    color: config.lightPrimaryColor, // Shadow color
                     spreadRadius: 0.1, // How much the shadow spreads
                     blurRadius: 4,   // The blur effect of the shadow
                     offset: Offset(0.5, 0.5), // Offset in x and y direction

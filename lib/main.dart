@@ -12,8 +12,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            200.h.verticalSpace,
             MovingWidget(),
           ],
         ),
@@ -44,8 +44,8 @@ class _MovingWidgetState extends State<MovingWidget> {
           height: 37,
           width: 202,
           decoration: BoxDecoration(
-            color: config.secondaryColor,
-            borderRadius: BorderRadius.circular(8)
+              color: Colors.grey[500],
+              borderRadius: BorderRadius.circular(5)
           ),
         ),
 
@@ -60,20 +60,20 @@ class _MovingWidgetState extends State<MovingWidget> {
               width: 100,
               height: 35,
               decoration: BoxDecoration(
-                color: config.primaryColor,
-                borderRadius: BorderRadius.circular(7.0)
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(5)
               ),
             ),
           ),
         ),
         Positioned(
-          top: 9,
+            top: 9,
             left: 38,
             child: GestureDetector(
               onTap: () => _togglePosition(),
               child: Text("Left", style: TextStyle(
                   color: !_isLeft
-                      ?config.lightPrimaryColor: Colors.white )
+                      ?Colors.grey[400]: Colors.grey[500] )
               ),
             )
         ),
@@ -84,7 +84,7 @@ class _MovingWidgetState extends State<MovingWidget> {
               onTap: () => _togglePosition(),
               child: Text("Right", style: TextStyle(
                   color: _isLeft
-                      ?config.lightPrimaryColor: Colors.white)
+                      ?Colors.grey[400]: Colors.grey[500])
               ),
             )
         ),

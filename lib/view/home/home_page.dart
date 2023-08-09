@@ -35,6 +35,13 @@ class HomePage extends StatelessWidget {
                       Expanded(child: _SearchFormField()),
                       Row(
                         children: [
+                          55.w.horizontalSpace,
+                          GestureDetector(
+                              onTap: (){
+                                DC.changeTabIndex(5);
+                              },
+                              child: Icon(CupertinoIcons.heart, size: 32, color: Colors.grey[800])),
+                          110.w.horizontalSpace,
                           GestureDetector(
                               onTap: (){
                                 DC.changeTabIndex(4);
@@ -42,11 +49,9 @@ class HomePage extends StatelessWidget {
                               child: Icon(CupertinoIcons.cart, size: 32, color: Colors.grey[800],
                               )
                           ),
-                          GestureDetector(
-                              onTap: (){
-                                DC.changeTabIndex(5);
-                              },
-                              child: Icon(CupertinoIcons.heart, size: 32, color: Colors.grey[800])),
+                          55.w.horizontalSpace,
+
+
                         ],
                       ),
                     ],
@@ -54,6 +59,7 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               HorizontalListView(),
+              40.h.verticalSpace,
 
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,7 +117,7 @@ Widget _SearchFormField() {
   HomeController _controller = Get.find();
   return Container(
     height: 36.0,
-    //margin: EdgeInsets.fromLTRB(25.0, 12.0, 110.0, 0.0),
+    margin: EdgeInsets.all(10.0),
     decoration: BoxDecoration(
       color: Colors.transparent,
       borderRadius: BorderRadius.circular(9),
@@ -155,7 +161,7 @@ Widget _ListItems() {
                 PhysicalModel(
                   borderRadius: BorderRadius.circular(50),
                   elevation: 15,
-                  shadowColor: config.lightPrimaryColor.withAlpha(80),
+                  shadowColor: config.lightPrimaryColor.withAlpha(85),
                   color: Colors.transparent,
                   child: Card(
                     //color: Colors.blue,
@@ -349,8 +355,9 @@ class HorizontalListView extends StatelessWidget {
         itemBuilder: (context, index) {
           return Obx(() => Row(
             children: [
+              15.w.horizontalSpace,
               buildTextContainer(items[index]),
-              30.w.horizontalSpace,
+              15.w.horizontalSpace,
             ],
           ));
         },

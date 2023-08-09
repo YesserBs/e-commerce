@@ -9,7 +9,8 @@ import 'package:myproj/view/wallet/wallet_controller.dart';
 
 class WalletPage extends StatelessWidget {
   WalletController WC = Get.find();
-  final yourList = ["Purchased articles: 4", "Purchased articles: 2", "Purchased articles: 4", "Purchased articles: 1"];
+  final Transactions = ["Purchased articles: 4", "Purchased articles: 2", "Purchased articles: 4", "Purchased articles: 1"];
+  final TopUps = ["Added: \$20.00", "Added: \$400.00", "Added: \$1.00"];
   late ToggleButton TButton;
 
   WalletPage() {
@@ -176,8 +177,8 @@ class WalletPage extends StatelessWidget {
                   child: ListView.builder(
                     itemCount:
                     WC.isLeft.value
-                        ? yourList.length
-                        : yourList.length-3,
+                        ? Transactions.length
+                        : TopUps.length,
                     itemBuilder: (BuildContext context, int index) {
                       return
                         WC.isLeft.value
@@ -200,7 +201,7 @@ class WalletPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                yourList[index], // Replace with your actual data
+                                Transactions[index], // Replace with your actual data
                                 style: TextStyle(fontSize: 15, ),
                               ),
                               Text(
@@ -229,7 +230,7 @@ class WalletPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                yourList[index], // Replace with your actual data
+                                TopUps[index], // Replace with your actual data
                                 style: TextStyle(fontSize: 15, ),
                               ),
                               Text(

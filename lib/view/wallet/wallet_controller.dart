@@ -5,7 +5,6 @@ class WalletController extends GetxController {
 
   void GetIsLeft(bool value){
     isLeft.value = value;
-    print(value);
     update();
   }
 }

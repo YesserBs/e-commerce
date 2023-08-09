@@ -23,5 +23,6 @@ class Binding extends Bindings {
     Get.lazyPut<SaveController>(() => SaveController());
     Get.lazyPut<WalletController>(() => WalletController());
     Get.lazyPut<DetailsController>(() => DetailsController());
+    Get.lazyPut<ProfileController>(() => ProfileController());
   }
 }

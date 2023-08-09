@@ -9,8 +9,8 @@ import 'package:myproj/view/wallet/wallet_controller.dart';
 
 class WalletPage extends StatelessWidget {
   WalletController WC = Get.find();
-  final Transactions = ["Purchased articles: 4", "Purchased articles: 2", "Purchased articles: 4", "Purchased articles: 1"];
-  final TopUps = ["Added: \$20.00", "Added: \$400.00", "Added: \$1.00"];
+  final Transactions = [["\$180.00", "\$150.50", "\$5.00", "\$6.00"], ["11", "2", "4", "1"]];
+  final TopUps = ["\$20.00", "\$400.00", "\$1.00"];
   late ToggleButton TButton;
 
   WalletPage() {
@@ -165,10 +165,40 @@ class WalletPage extends StatelessWidget {
             190.h.verticalSpace,
             TButton,
             200.h.verticalSpace,
+            Container(
+              color: Colors.transparent,
+              margin: EdgeInsets.symmetric(horizontal: 55),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Total",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[700]
+                  ),),
+                  Obx(() => Visibility(
+                    visible: WC.isLeft.value, // Condition ici (1==1 est toujours vrai)
+                    child: Text(
+                      "Articles",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[700],
+                      ),
+                    ),
+                  )),
+                  Text("Date",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[700]
+                    ),),
+                ],
+              ),
+            ),
+            60.h.verticalSpace,
 
             Obx(() =>
                 Container(
-                  height: 410,
+                  height: 390,
                   width: 340,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
@@ -177,13 +207,13 @@ class WalletPage extends StatelessWidget {
                   child: ListView.builder(
                     itemCount:
                     WC.isLeft.value
-                        ? Transactions.length
+                        ? Transactions[1].length
                         : TopUps.length,
                     itemBuilder: (BuildContext context, int index) {
                       return
                         WC.isLeft.value
                             ? Container(
-                          margin: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+                          margin: EdgeInsets.all(3),
                           padding: EdgeInsets.all(16),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
@@ -197,22 +227,36 @@ class WalletPage extends StatelessWidget {
                           ],
 
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                Transactions[index], // Replace with your actual data
-                                style: TextStyle(fontSize: 15, ),
-                              ),
-                              Text(
-                                "08/08/2023", // Replace with your actual data
-                                style: TextStyle(fontSize: 15, color: config.primaryColor),
-                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: 90,
+                                    color: Colors.transparent,
+                                    child: Text(
+                                      Transactions[0][index], // Replace with your actual data
+                                      style: TextStyle(fontSize: 15, ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 30,
+                                    color: Colors.transparent,
+                                    child: Center(
+                                      child: Text(
+                                        Transactions[1][index], // Replace with your actual data
+                                        style: TextStyle(fontSize: 15, ),
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    "08/08/2023", // Replace with your actual data
+                                    style: TextStyle(fontSize: 15, color: config.primaryColor),
+                                  ),
                             ],
                           ),
                         )
                             : Container(
-                          margin: EdgeInsets.symmetric(vertical: 3, horizontal: 3),
+                          margin: EdgeInsets.all(3),
                           padding: EdgeInsets.all(16),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),

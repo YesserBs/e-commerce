@@ -75,7 +75,7 @@ class _ToggleButton extends State<ToggleButton> {
             child: Text(
               widget.leftText,
               style: TextStyle(
-                color: !_isLeft ? Colors.grey[400] : config.primaryColor,
+                color: !_isLeft ? Colors.grey[500] : Colors.grey[600],
                   fontWeight: FontWeight.bold
               ),
             ),
@@ -89,7 +89,7 @@ class _ToggleButton extends State<ToggleButton> {
             child: Text(
               widget.rightText,
               style: TextStyle(
-                color: _isLeft ? Colors.grey[400] : config.primaryColor,
+                color: _isLeft ? Colors.grey[500] : Colors.grey[600],
                   fontWeight: FontWeight.bold
               ),
             ),

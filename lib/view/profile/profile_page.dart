@@ -28,38 +28,104 @@ class ProfilePage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Column(
-          //mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Stack(
               children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 20, 10, 15),
-                  child: CircleAvatar(
-                    radius: 127.sp,
-                    backgroundColor: config.secondaryColor,
-                    child: CircleAvatar(
-                      radius: 125.sp,
-                      backgroundImage: AssetImage('assets/images/profile.jpg'),
+                Container(
+                  height: 530.h,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Colors.white, config.lightPrimaryColor],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
                     ),
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("User_123", style: TextStyle(
-                      fontFamily: 'OstrichSans',
-                      fontSize: 23,
+                Positioned(
+                  bottom: -20,
+                  child: Container(
+
+                    height: 60,
+                    width: 411,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(25)
+                    ),
+                  ),
+                ),
+                Positioned(
+                    child: Container(
+                      //margin: EdgeInsets.symmetric(horizontal: 50),
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, 20, 10, 15),
+                            child: Stack(
+                              children: [
+                                CircleAvatar(
+                                  radius: 127.sp,
+                                  backgroundColor: config.secondaryColor,
+                                  child: CircleAvatar(
+                                    radius: 125.sp,
+                                    backgroundImage: AssetImage('assets/images/profile.jpg'),
+                                  ),
+                                ),
+                                Positioned(
+                                    bottom: 10,
+                                    right: 0,
+                                    child: Container(
+                                      height: 24,
+                                      width: 24,
+                                      decoration: BoxDecoration(
+                                        color: config.lightPrimaryColor,
+                                        shape: BoxShape.circle,
+                                      ),
+                                    )
+                                ),
+                                Positioned(
+                                  bottom: 13,
+                                    right: 3,
+                                    child: Container(
+                                      height: 18,
+                                      width: 18,
+                                      decoration: BoxDecoration(
+                                        color: config.primaryColor,
+                                        shape: BoxShape.circle,
+                                      ),
+                                    )
+                                ),
+                              ],
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "User_123",
+                                style: TextStyle(
+                                  fontFamily: 'OstrichSans',
+                                  fontSize: 23,
+                                ),
+                              ),
+                              Text(
+                                "user@gmail.com",
+                                style: TextStyle(
+                                  fontSize: 19,
+                                  color: Colors.grey[700],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
-                    Text("user@gmail.com", style: TextStyle(
-                      fontSize: 19,
-                      color: Colors.grey[700]
-                      ),
-                    ),
-                  ],
-                )
+
+                ),
               ],
             ),
             TButton,

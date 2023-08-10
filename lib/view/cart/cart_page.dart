@@ -21,6 +21,7 @@ class CartPage extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -51,6 +52,7 @@ class CartPage extends StatelessWidget {
                           ),
                           onDismissed: (_) {
                             cartController.removeCartItem(item, index);
+                            cartController.calculateTotal();
                           },
                           child:
                           GestureDetector(
@@ -105,6 +107,7 @@ class CartPage extends StatelessWidget {
                                           if (item.added > 1){
                                             cartController.decreaseAdded(item, index);
                                           }
+                                          cartController.calculateTotal();
                                         }
                                     ),),
                                 Positioned(
@@ -124,6 +127,7 @@ class CartPage extends StatelessWidget {
                                             child: Icon(CupertinoIcons.plus_app_fill, size: 26, color: config.primaryColor,)),
                                         onTap: (){
                                           cartController.increaseAdded(item, index);
+                                          cartController.calculateTotal();
                                         }
                                     ),
                                 ),
@@ -160,29 +164,33 @@ class CartPage extends StatelessWidget {
                   ),
                       ),
                 )
-                    : Center(
-                    child: Container(
-                      height: 650.h,
-                      width: 650.h,
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20), // Set the desired border radius value
+                    : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        500.h.verticalSpace,
+                        Container(
+                          height: 650.h,
+                          width: 650.h,
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20), // Set the desired border radius value
+                            ),
+                            elevation: 4,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(FontAwesomeIcons.cartPlus, size: 70, color: config.primaryColor,),
+                                110.h.verticalSpace,
+                                Text("Cart is empty", style: TextStyle(color: config.secondaryColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 26
+                                ),)
+                              ],
+                            ),
+                          ),
                         ),
-                        elevation: 4,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(FontAwesomeIcons.cartPlus, size: 70, color: config.primaryColor,),
-                            110.h.verticalSpace,
-                            Text("Cart is empty", style: TextStyle(color: config.secondaryColor,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 26
-                            ),)
-                          ],
-                        ),
-                      ),
+                      ],
                     )
-                )
             )
             ),
             Container(
@@ -208,10 +216,12 @@ class CartPage extends StatelessWidget {
                   Row(
                     children: [
                       220.w.horizontalSpace,
-                      Text("Total: \$37.00",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey
-                        ),),
+                      Obx(()=>
+                          Text("Total: \$  ${cartController.total}.00",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey
+                            ),)
+                      ),
 
                     ],
                   ),

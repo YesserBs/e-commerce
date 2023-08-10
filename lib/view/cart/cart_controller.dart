@@ -8,6 +8,7 @@ class CartController extends GetxController {
   final addedArticles = <Article>[].obs;
   final quantityList = <int>[].obs;
   var added = 1.obs;
+  var total = 0.obs;
 
 
   Future<void> addToCart(Article item) async {
@@ -39,6 +40,15 @@ class CartController extends GetxController {
     item.added--;
     quantityList[index]--;
     added.value = item.added;
+    update();
+  }
+
+  void calculateTotal(){
+    int sum = 0;
+    for (int i = 0; i < addedArticles.length; i++) {
+        sum = sum + addedArticles[i].prix * quantityList[i];
+    }
+    total.value = sum;
     update();
   }
 

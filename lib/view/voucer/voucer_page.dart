@@ -4,14 +4,16 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:myproj/config/configuration.dart';
 import 'package:myproj/view/profile/profile_controller.dart';
+import 'package:myproj/view/voucer/voucer_controller.dart';
 import '../../custom/cToggleButton.dart';
 import '../home/home_controller.dart';
 import '../profile/profile_page.dart';
 
 class VoucerPage extends StatelessWidget {
-  //VoucerController VC = Get.find();
+  VoucerController VC = Get.find();
   HomeController HC = Get.find();
   ProfileController PC = Get.find();
   late ToggleButton TButton;
@@ -73,19 +75,16 @@ class VoucerPage extends StatelessWidget {
                       Text("Your voucers"),
                       60.h.verticalSpace,
                       TButton,
-                      ElevatedButton(onPressed: (){HC.toggleShowImage();}, child: Text("Show")),
                       120.h.verticalSpace,
                       Expanded(
-                        child: Obx(() => ListView.builder(
+                        child: ListView.builder(
                           itemCount:
-                          PC.isLeft.value
-                              ? Added.length
-                              : Added.length,
+                          Added.length,
                           itemBuilder: (BuildContext context, int index) {
                             return
                               Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                                child: Obx(()=> Column(
+                                child: Column(
                                   children: [
                                     Row(
                                       children: [
@@ -93,28 +92,32 @@ class VoucerPage extends StatelessWidget {
                                           child: Container(
                                             margin: EdgeInsets.symmetric(horizontal: 4),
                                             decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10),
-                                              color: Colors.red,
                                               boxShadow: [
                                                 BoxShadow(
-                                                  color: config.lightPrimaryColor, // Shadow color
+                                                  color: config.primaryColor.withAlpha(100), // Shadow color
                                                   spreadRadius: 1, // How much the shadow spreads
                                                   blurRadius: 2,   // The blur effect of the shadow
                                                   offset: Offset(0.5, 0.5), // Offset in x and y direction
                                                 ),
                                               ],
                                             ),
-                                            child: Image.asset(Added[index]),
+                                            child: GestureDetector(
+                                                onTap: (){
+                                                  HC.toggleShowImage();
+                                                  VC.getIndex(index);
+                                                  print("here ${VC.voucerIndex.value}");
+                                                },
+                                                child: Image.asset(Added[index])),
                                           ),
                                         ),
                                       ],
                                     ),
-                                    _buildAnimatedContainer(),
+                                    Obx(() => _buildAnimatedContainer(index))
+                                    ,
                                   ],
-                                )),
+                                )
                               );
                           },
-                        ),
                         ),
                       )
                     ],
@@ -122,7 +125,7 @@ class VoucerPage extends StatelessWidget {
                 ),
               ),
               Container(
-                height: 30,
+                height: 28,
                 color: Colors.white,
               )
             ],
@@ -133,26 +136,41 @@ class VoucerPage extends StatelessWidget {
   }
 }
 
-Widget _buildAnimatedContainer() {
+Widget _buildAnimatedContainer(int value) {
+  VoucerController VC = Get.find();
   HomeController HC = Get.find();
+  ProfileController PC = Get.find();
+  print("$value ${VC.voucerIndex.value}");
+  if (VC.voucerIndex.value == value) {
+    print("entered");
 
-  return Stack(
-    children: [
-      AnimatedContainer(
-        color: Colors.white,
-        duration: Duration(milliseconds: 300),
-        width: 430,
-        height: HC.showAd.value ? 232 : 0,
-      ),
-      Positioned(
-        right: 0, // This is not useless, shall be kept
-        top: 0, // Same thing here
-        child: Container(
-          height: 232,
-          child: Image.asset("assets/images/AdidPromo.jpg"),
+
+
+    return Obx(()=> Stack(
+      children: [
+        AnimatedContainer(
+          color: config.lightPrimaryColor,
+          duration: Duration(milliseconds: 0),
+          width: 330,
+          height: HC.showAd.value ? 150 : 0,
         ),
-      )
-    ],
-  );
+        Positioned(
+          left: 0,
+          top: 0,
+          child: Container(
+            height: 232,
+            width: 330,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Text("Introducing our exclusive coupon – a gateway to savings and satisfaction! Unlock incredible discounts with this limited-time offer. Present this coupon at checkout to enjoy unbeatable deals on your favorite products and services. Don't miss out on the chance to maximize value while indulging in your desires. Grab this coupon today and elevate your shopping experience!"),
+            ),
+          ),
+        )
+      ],
+    )
+    );
+  } else {
+    return SizedBox.shrink(); // Return an empty widget if value is not 1
+  }
 }
 

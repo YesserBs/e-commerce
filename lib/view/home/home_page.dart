@@ -17,6 +17,7 @@ class HomePage extends StatelessWidget {
   UserController userController = UserController();
   DashboardController DC = Get.find();
   HomeController HC = Get.find();
+  CartController CC = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +45,7 @@ class HomePage extends StatelessWidget {
                           110.w.horizontalSpace,
                           GestureDetector(
                               onTap: (){
+                                CC.calculateTotal();
                                 DC.changeTabIndex(4);
                               },
                               child: Icon(CupertinoIcons.cart, size: 32, color: Colors.grey[800],
@@ -167,7 +169,6 @@ Widget _ListItems() {
                     //color: Colors.blue,
                     child: GestureDetector(
                       onTap: () {
-                        detailsController.getArguments(item);
                         dashboardController.changeTabIndex(6);
                       },
                       child: Column(

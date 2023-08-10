@@ -48,10 +48,9 @@ class CartController extends GetxController {
       'Item added to Cart', // Title of the snackbar
       name, // Message of the snackbar
       animationDuration: Duration(milliseconds: 650),
-      duration: Duration(milliseconds: 900), // Set the duration to 1 second (adjust as needed)
-      snackPosition: SnackPosition.BOTTOM, // Show the snackbar from the top
+      duration: Duration(milliseconds: 900), // Set the duration to 1 second
+      snackPosition: SnackPosition.BOTTOM,
       margin: EdgeInsets.symmetric(vertical: 52, horizontal: 20),
-      // You can add more options for the snackbar here if needed
     );
   }
 

@@ -204,29 +204,25 @@ class CartPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
 
+
                   Row(
                     children: [
-                      160.w.horizontalSpace,
-                      Text("Total",
-                      style: TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey
-                      ),),
-                      60.w.horizontalSpace,
-                      Text("\$37.00",
+                      220.w.horizontalSpace,
+                      Text("Total: \$37.00",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey
+                        ),),
+
+                    ],
+                  ),
+
+                  Row(
+                    children: [
+                      Text("To: You",
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey
                           )),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        child: Icon(
-                          CupertinoIcons.chevron_forward,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      160.w.horizontalSpace
+                      220.w.horizontalSpace,
                     ],
                   ),
                 ],

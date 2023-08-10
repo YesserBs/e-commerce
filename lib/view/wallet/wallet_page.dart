@@ -162,7 +162,7 @@ class WalletPage extends StatelessWidget {
                 Text("Send")
               ],
             ),
-            190.h.verticalSpace,
+            170.h.verticalSpace,
             TButton,
             200.h.verticalSpace,
             Container(

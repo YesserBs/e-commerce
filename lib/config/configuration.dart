@@ -8,7 +8,7 @@ class config {
   static const Color backgroundColor = Color(0xFFDCF0FF);
 
   static const Color lightGrey = Color(0xFFBBBBBB);
-  static const Color lightRed =  Color(0xFFFF7F00);  //Color(0xFFFF5D5D);
+  static const Color lightRed =  Color(0xFFFF5D5D);  //Color(0xFFFF5D5D);
 
 
   // font sizes

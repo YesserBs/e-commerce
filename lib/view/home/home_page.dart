@@ -322,7 +322,7 @@ Widget _buildAnimatedContainer() {
   return Stack(
     children: [
       AnimatedContainer(
-        color: Colors.red,
+        color: Colors.white,
         duration: Duration(milliseconds: 300),
         width: 430,
         height: HC.showAd.value ? 232 : 0,

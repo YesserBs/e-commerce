@@ -21,18 +21,18 @@ class CartPage extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Obx(() =>
-                  Expanded(
-                  child: cartController.addedArticles.length > 0
-                      ? Obx(
-                        () => ListView.builder(
-                      itemCount: cartController.addedArticles.length,
-                      itemBuilder: (context, index) {
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Obx(() =>
+                Expanded(
+                child: cartController.addedArticles.length > 0
+                    ? Obx(
+                      () => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListView.builder(
+                    itemCount: cartController.addedArticles.length,
+                    itemBuilder: (context, index) {
                         final item = cartController.addedArticles[index];
                         return Dismissible(
                           key: Key(item.uid),
@@ -156,36 +156,83 @@ class CartPage extends StatelessWidget {
                             ),
                           ),
                         );
-                      },
-                    ),
-                  )
-                      : Center(
-                      child: Container(
-                        height: 650.h,
-                        width: 650.h,
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20), // Set the desired border radius value
-                          ),
-                          elevation: 4,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(FontAwesomeIcons.cartPlus, size: 70, color: config.primaryColor,),
-                              110.h.verticalSpace,
-                              Text("Cart is empty", style: TextStyle(color: config.secondaryColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 26
-                              ),)
-                            ],
-                          ),
+                    },
+                  ),
+                      ),
+                )
+                    : Center(
+                    child: Container(
+                      height: 650.h,
+                      width: 650.h,
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20), // Set the desired border radius value
                         ),
-                      )
-                  )
-              )
-              )
-            ],
-          ),
+                        elevation: 4,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(FontAwesomeIcons.cartPlus, size: 70, color: config.primaryColor,),
+                            110.h.verticalSpace,
+                            Text("Cart is empty", style: TextStyle(color: config.secondaryColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 26
+                            ),)
+                          ],
+                        ),
+                      ),
+                    )
+                )
+            )
+            ),
+            Container(
+              height: 65,
+
+              decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.4), // Shadow color
+                      spreadRadius: 1, // How far the shadow extends
+                      blurRadius: 50, // The blur radius
+                      offset: Offset(0.5, 0.5), // Offset of the shadow
+                    ),
+                  ],
+                  color: Colors.white,
+                borderRadius: BorderRadius.circular(20)
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+
+                  Row(
+                    children: [
+                      160.w.horizontalSpace,
+                      Text("Total",
+                      style: TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey
+                      ),),
+                      60.w.horizontalSpace,
+                      Text("\$37.00",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey
+                          )),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        child: Icon(
+                          CupertinoIcons.chevron_forward,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      160.w.horizontalSpace
+                    ],
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );

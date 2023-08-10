@@ -14,10 +14,10 @@ class ProfileController extends GetxController {
     searchedText = value;
   }
 
-  void showSnackBar(String name) {
+  void showSnackBar(String message, String value) {
     Get.snackbar(
-      'Contact added successfully', // Title of the snackbar
-      name, // Message of the snackbar
+      message, // Title of the snackbar
+      value, // Message of the snackbar
       animationDuration: Duration(milliseconds: 650),
       duration: Duration(milliseconds: 900), // Set the duration to 1 second
       snackPosition: SnackPosition.BOTTOM,

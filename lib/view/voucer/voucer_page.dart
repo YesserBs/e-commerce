@@ -7,10 +7,12 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:myproj/config/configuration.dart';
 import 'package:myproj/view/profile/profile_controller.dart';
 import '../../custom/cToggleButton.dart';
+import '../home/home_controller.dart';
 import '../profile/profile_page.dart';
 
 class VoucerPage extends StatelessWidget {
   //VoucerController VC = Get.find();
+  HomeController HC = Get.find();
   ProfileController PC = Get.find();
   late ToggleButton TButton;
   var Added = ["assets/images/coupon.png", "assets/images/coupon2.png", "assets/images/coupon1.png", "assets/images/coupon.png", "assets/images/coupon2.png", "assets/images/coupon1.png", ];
@@ -71,6 +73,7 @@ class VoucerPage extends StatelessWidget {
                       Text("Your voucers"),
                       60.h.verticalSpace,
                       TButton,
+                      ElevatedButton(onPressed: (){HC.toggleShowImage();}, child: Text("Show")),
                       120.h.verticalSpace,
                       Expanded(
                         child: Obx(() => ListView.builder(
@@ -82,28 +85,33 @@ class VoucerPage extends StatelessWidget {
                             return
                               Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                                child: Row(
+                                child: Obx(()=> Column(
                                   children: [
-                                    Expanded(
-                                      child: Container(
-                                        margin: EdgeInsets.symmetric(horizontal: 4),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          color: Colors.red,
-                                          boxShadow: [
-                                          BoxShadow(
-                                            color: config.lightPrimaryColor, // Shadow color
-                                            spreadRadius: 1, // How much the shadow spreads
-                                            blurRadius: 2,   // The blur effect of the shadow
-                                            offset: Offset(0.5, 0.5), // Offset in x and y direction
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            margin: EdgeInsets.symmetric(horizontal: 4),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(10),
+                                              color: Colors.red,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: config.lightPrimaryColor, // Shadow color
+                                                  spreadRadius: 1, // How much the shadow spreads
+                                                  blurRadius: 2,   // The blur effect of the shadow
+                                                  offset: Offset(0.5, 0.5), // Offset in x and y direction
+                                                ),
+                                              ],
+                                            ),
+                                            child: Image.asset(Added[index]),
                                           ),
-                                        ],
                                         ),
-                                        child: Image.asset(Added[index]),
-                                      ),
+                                      ],
                                     ),
+                                    _buildAnimatedContainer(),
                                   ],
-                                ),
+                                )),
                               );
                           },
                         ),
@@ -124,3 +132,27 @@ class VoucerPage extends StatelessWidget {
     );
   }
 }
+
+Widget _buildAnimatedContainer() {
+  HomeController HC = Get.find();
+
+  return Stack(
+    children: [
+      AnimatedContainer(
+        color: Colors.white,
+        duration: Duration(milliseconds: 300),
+        width: 430,
+        height: HC.showAd.value ? 232 : 0,
+      ),
+      Positioned(
+        right: 0, // This is not useless, shall be kept
+        top: 0, // Same thing here
+        child: Container(
+          height: 232,
+          child: Image.asset("assets/images/AdidPromo.jpg"),
+        ),
+      )
+    ],
+  );
+}
+

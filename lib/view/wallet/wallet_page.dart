@@ -98,7 +98,7 @@ class WalletPage extends StatelessWidget {
                             size: 25,
                           ),
                           onPressed: () {
-                            // Your onPressed action here
+                            _showInputDialog(context, "Add credits to wallet", "Confirm", "");// Print statement added
                           },
                         ),
                       ),
@@ -122,7 +122,7 @@ class WalletPage extends StatelessWidget {
                           size: 25,
                         ),
                         onPressed: () {
-                          _showInputDialog(context, "Add credits to wallet");// Print statement added
+                          _showInputDialog(context, "Confirm paying the cart", "Confirm", "\$200.00");// Print statement added
                         },
                       ),
                     ),
@@ -146,7 +146,7 @@ class WalletPage extends StatelessWidget {
                             size: 25,
                           ),
                           onPressed: () {
-                            // Your onPressed action here
+                            _showInputDialog(context, "Send credits", "Next", "Enter the amout");// Print statement added
                           },
                         ),
                       ),
@@ -298,35 +298,46 @@ class WalletPage extends StatelessWidget {
       ),
     );
   }
-  void _showInputDialog(BuildContext context, String instruction) {
+  void _showInputDialog(BuildContext context, String instruction, String buttonText, String subtitle) {
     Get.defaultDialog(
       title: instruction,
-      content: TextField(
-        controller: _numberController,
-        keyboardType: TextInputType.number,
+      content: Column(
+        children: [
+          Text(subtitle,
+          style: TextStyle(
+            fontSize: 13,
+            color: Colors.grey[700]
+          ),),
+          TextField(
+            controller: _numberController,
+            keyboardType: TextInputType.number,
+          ),
+        ],
       ),
       actions: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: () => Get.back(),
-              child: Container(
-                child: Text('Cancel'),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () => Get.back(),
+                child: Container(
+                  child: Text('Cancel'),
+                ),
               ),
-            ),
-            //SizedBox(width: 20,),
-            GestureDetector(
-              onTap: (){
-                Get.back();
-                int enteredNumber = int.tryParse(_numberController.text) ?? 0;
-                print('Entered Number: $enteredNumber');
-              },
-              child: Container(
-                child: Text('Confirm'),
+              GestureDetector(
+                onTap: (){
+                  Get.back();
+                  int enteredNumber = int.tryParse(_numberController.text) ?? 0;
+                  print('Entered Number: $enteredNumber');
+                },
+                child: Container(
+                  child: Text(buttonText),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );

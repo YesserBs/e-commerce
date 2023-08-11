@@ -339,8 +339,13 @@ class WalletPage extends StatelessWidget {
                     WC.changeCredits(enteredNumber);
                   }
                   else if (type == "pay"){
-                    print("SEnt");
-                    WC.changeCredits(-CC.total.value);
+                    if (WC.credits.value > CC.total.value){
+                      WC.changeCredits(-CC.total.value);
+                      CC.showSnackBar("Items purshased successfully", "${CC.addedArticles.length.toString()} articles purchased");
+                    }
+                    else{
+                      CC.showSnackBar("Error", "You don't have enough credits");
+                    }
                   }
                 },
                 child: Container(

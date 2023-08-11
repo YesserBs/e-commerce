@@ -5,9 +5,9 @@ class WalletController extends GetxController {
   var isLeft = false.obs;
 
   void changeCredits(int value){
-    //if (credits.value > -value){
+    if (credits.value > -value){
       credits.value = credits.value + value;
-    //}
+    }
     update();
   }
 

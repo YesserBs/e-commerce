@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="Yesser.yes.myproj">
    <application
-        android:label="WeTrade"
+        android:label="IShop"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

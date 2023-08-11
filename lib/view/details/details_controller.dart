@@ -4,32 +4,36 @@ import 'package:get_storage/get_storage.dart';
 import '../../objects/article.dart';
 
 class DetailsController extends GetxController {
-  late Article arguments = Article(); // Initialize the field
-  var quantity = 1.obs;
+  late Article arguments = Article(); // Initialize the field with an empty Article instance
+  var quantity = 1.obs; // Observable variable for the quantity
 
-  void increaseQuantity(){
+  // Function to increase the quantity
+  void increaseQuantity() {
     quantity++;
   }
 
-  void decreaseQuantity(){
-    if (quantity > 1){
+  // Function to decrease the quantity
+  void decreaseQuantity() {
+    if (quantity > 1) {
       quantity--;
     }
   }
 
-  void setQuantity(int value, int argumentsAdded){
-    if (value == -1){
+  // Function to set the quantity with special handling for -1 (default) value
+  void setQuantity(int value, int argumentsAdded) {
+    if (value == -1) {
       quantity.value = 1;
-    }
-    else{
+    } else {
       quantity.value = argumentsAdded;
     }
   }
 
+  // Function to set the arguments with an Article item
   void getArguments(Article item) {
     arguments = item;
   }
 
+  // Function to create a default Article instance and set it as arguments
   void createDefaultArticle() {
     // Creating an instance of Article with default values
     Article defaultArticle = Article();

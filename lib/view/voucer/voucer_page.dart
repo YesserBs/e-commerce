@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:myproj/config/configuration.dart';
+import 'package:myproj/view/cart/cart_controller.dart';
 import 'package:myproj/view/profile/profile_controller.dart';
 import 'package:myproj/view/voucer/voucer_controller.dart';
 import '../../custom/cToggleButton.dart';
@@ -137,6 +138,7 @@ class VoucerPage extends StatelessWidget {
 }
 
 Widget _buildAnimatedContainer(int value) {
+  CartController CC = Get.find();
   VoucerController VC = Get.find();
   HomeController HC = Get.find();
   ProfileController PC = Get.find();
@@ -152,17 +154,50 @@ Widget _buildAnimatedContainer(int value) {
           color: config.lightPrimaryColor,
           duration: Duration(milliseconds: 0),
           width: 330,
-          height: HC.showAd.value ? 150 : 0,
+          height: HC.showAd.value ? 130 : 0,
         ),
         Positioned(
           left: 0,
           top: 0,
           child: Container(
-            height: 232,
             width: 330,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Text("Introducing our exclusive coupon – a gateway to savings and satisfaction! Unlock incredible discounts with this limited-time offer. Present this coupon at checkout to enjoy unbeatable deals on your favorite products and services. Don't miss out on the chance to maximize value while indulging in your desires. Grab this coupon today and elevate your shopping experience!"),
+              child: Column(
+                children: [
+                  Text("Introducing our exclusive coupon – a gateway to savings and satisfaction! Unlock incredible discounts with this limited-time offer. Present this coupon at checkout to enjoy unbeatable deals on your favorite products and services."),
+
+                  80.h.verticalSpace,
+                  GestureDetector(
+                    onTap: (){
+                      VC.toggleVoucerApplied();
+                      if (VC.voucerApplied.value == true){
+                        CC.showSnackBar("Voucer applied", "-75% reduction");
+                      }
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 6, horizontal: 16),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: config.primaryColor.withAlpha(90), // Shadow color
+                            spreadRadius: 1, // How far the shadow extends
+                            blurRadius: 10, // The blur radius
+                            offset: Offset(0.5, 0.5), // Offset of the shadow
+                          ),
+                        ],
+                        //boxShadow:
+                      ),
+                      child: Text(
+                        VC.voucerApplied.value
+                        ? "Unapply"
+                        : "Apply", style: TextStyle(color: config.primaryColor, fontWeight: FontWeight.bold),)
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         )

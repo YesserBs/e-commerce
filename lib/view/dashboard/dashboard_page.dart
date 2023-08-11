@@ -18,7 +18,7 @@ import '../save/save_page.dart';
 import 'dashboard_controller.dart';
 
 class DashboardPage extends StatelessWidget {
-  SignupController SC = Get.find();
+  SignupController SC = Get.find(); // Access the SignupController using Get.find()
 
   @override
   Widget build(BuildContext context) {
@@ -125,6 +125,7 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
+  // Helper method to create a BottomNavigationBarItem
   _bottomNavigationBarItem({required IconData icon, required String label}) {
     return BottomNavigationBarItem(
       icon: Icon(icon, size: 20),

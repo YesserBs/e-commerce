@@ -5,10 +5,12 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:myproj/config/configuration.dart';
 import 'package:myproj/custom/cToggleButton.dart';
+import 'package:myproj/view/cart/cart_controller.dart';
 import 'package:myproj/view/wallet/wallet_controller.dart';
 
 class WalletPage extends StatelessWidget {
   WalletController WC = Get.find();
+  CartController CC = Get.find();
   final Transactions = [["\$180.00", "\$150.50", "\$5.00", "\$6.00"], ["11", "2", "4", "1"]];
   final TopUps = ["\$20.00", "\$400.00", "\$1.00"];
   late ToggleButton TButton;
@@ -57,10 +59,10 @@ class WalletPage extends StatelessWidget {
                               style: TextStyle(fontSize: 25, color: config.secondaryColor, fontWeight: FontWeight.bold),
                             ),
                             30.w.horizontalSpace,
-                            Text(
-                              '421.00',
+                            Obx(() => Text(
+                              "${WC.credits.value.toString()}.00",
                               style: TextStyle(fontSize: 38, color: config.secondaryColor, fontWeight: FontWeight.bold),
-                            ),
+                            ))
                           ],
                         ),
                       ],
@@ -98,7 +100,7 @@ class WalletPage extends StatelessWidget {
                             size: 25,
                           ),
                           onPressed: () {
-                            _showInputDialog(context, "Add credits to wallet", "Confirm", "");// Print statement added
+                            _showInputDialog(context, "Add credits to wallet", "Confirm", "Enter the amout", "add");// Print statement added
                           },
                         ),
                       ),
@@ -122,7 +124,8 @@ class WalletPage extends StatelessWidget {
                           size: 25,
                         ),
                         onPressed: () {
-                          _showInputDialog(context, "Confirm paying the cart", "Confirm", "\$200.00");// Print statement added
+                          _showInputDialog(context, "Confirm paying the cart", "Confirm", "\$ ${CC.total.value}.00", "pay");
+                          print(_numberController.text);
                         },
                       ),
                     ),
@@ -146,7 +149,7 @@ class WalletPage extends StatelessWidget {
                             size: 25,
                           ),
                           onPressed: () {
-                            _showInputDialog(context, "Send credits", "Next", "Enter the amout");// Print statement added
+                            _showInputDialog(context, "Send credits", "Next", "Enter the amout", "send");// Print statement added
                           },
                         ),
                       ),
@@ -298,7 +301,7 @@ class WalletPage extends StatelessWidget {
       ),
     );
   }
-  void _showInputDialog(BuildContext context, String instruction, String buttonText, String subtitle) {
+  void _showInputDialog(BuildContext context, String instruction, String buttonText, String subtitle, String type) {
     Get.defaultDialog(
       title: instruction,
       content: Column(
@@ -308,10 +311,11 @@ class WalletPage extends StatelessWidget {
             fontSize: 13,
             color: Colors.grey[700]
           ),),
-          TextField(
-            controller: _numberController,
-            keyboardType: TextInputType.number,
-          ),
+          if (type != "pay")
+            TextField(
+              controller: _numberController,
+              keyboardType: TextInputType.number,
+            ),
         ],
       ),
       actions: [
@@ -331,6 +335,13 @@ class WalletPage extends StatelessWidget {
                   Get.back();
                   int enteredNumber = int.tryParse(_numberController.text) ?? 0;
                   print('Entered Number: $enteredNumber');
+                  if (type == "add"){
+                    WC.changeCredits(enteredNumber);
+                  }
+                  else if (type == "pay"){
+                    print("SEnt");
+                    WC.changeCredits(-CC.total.value);
+                  }
                 },
                 child: Container(
                   child: Text(buttonText),

@@ -17,9 +17,7 @@ class CartController extends GetxController {
       addedArticles.add(item);
       quantityList.add(item.added);
       print("Added articles: $addedArticles Quantity list: $quantityList");
-      showSnackBar(item.nom);
-    } else {
-      print("Item already in cart");
+      showSnackBar("Item added to cart", item.nom);
     }
   }
 
@@ -53,10 +51,10 @@ class CartController extends GetxController {
   }
 
 
-  void showSnackBar(String name) {
+  void showSnackBar(String title, String subtitle) {
     Get.snackbar(
-      'Item added to Cart', // Title of the snackbar
-      name, // Message of the snackbar
+      title, // Title of the snackbar
+      subtitle, // Message of the snackbar
       animationDuration: Duration(milliseconds: 650),
       duration: Duration(milliseconds: 900), // Set the duration to 1 second
       snackPosition: SnackPosition.BOTTOM,

@@ -12,6 +12,7 @@ class WalletPage extends StatelessWidget {
   final Transactions = [["\$180.00", "\$150.50", "\$5.00", "\$6.00"], ["11", "2", "4", "1"]];
   final TopUps = ["\$20.00", "\$400.00", "\$1.00"];
   late ToggleButton TButton;
+  final TextEditingController _numberController = TextEditingController();
 
   WalletPage() {
     TButton = ToggleButton(
@@ -22,6 +23,8 @@ class WalletPage extends StatelessWidget {
       onIsLeftChanged: WC.GetIsLeft,
     );
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -103,29 +106,29 @@ class WalletPage extends StatelessWidget {
 
                 ),
                 Positioned(
-                    left: 175,
-                    bottom: 10,
-                    child: Material(
-                      elevation: 1.8, // Adjust the elevation value as needed
-                      shape: CircleBorder(),
-                      color: Colors.white,
-                      child: SizedBox(
-                        width: 63,
-                        height: 65,
-                        child: IconButton(
-                          icon: Icon(
-                            CupertinoIcons.creditcard,
-                            color: Colors.grey[700],
-                            size: 25,
-                          ),
-                          onPressed: () {
-                            // Your onPressed action here
-                          },
+                  left: 175,
+                  bottom: 10,
+                  child: Material(
+                    elevation: 1.8, // Adjust the elevation value as needed
+                    shape: CircleBorder(),
+                    color: Colors.white,
+                    child: SizedBox(
+                      width: 63,
+                      height: 65,
+                      child: IconButton(
+                        icon: Icon(
+                          CupertinoIcons.creditcard,
+                          color: Colors.grey[700],
+                          size: 25,
                         ),
+                        onPressed: () {
+                          _showInputDialog(context, "Add credits to wallet");// Print statement added
+                        },
                       ),
-                    )
-
+                    ),
+                  ),
                 ),
+
                 Positioned(
                     left: 300,
                     bottom: 10,
@@ -196,101 +199,136 @@ class WalletPage extends StatelessWidget {
             ),
             60.h.verticalSpace,
 
-            Obx(() =>
-                Container(
-                  height: 390,
-                  width: 340,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    //color: config.lightRed,
-                  ),
-                  child: ListView.builder(
-                    itemCount:
-                    WC.isLeft.value
-                        ? Transactions[1].length
-                        : TopUps.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return
-                        WC.isLeft.value
-                            ? Container(
-                          margin: EdgeInsets.all(3),
-                          padding: EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,boxShadow: [
-                            BoxShadow(
-                              color: config.lightPrimaryColor, // Shadow color
-                              spreadRadius: 1, // How much the shadow spreads
-                              blurRadius: 2,   // The blur effect of the shadow
-                              offset: Offset(0.5, 0.5), // Offset in x and y direction
-                            ),
-                          ],
+            Expanded(
+              child: Obx(() =>
+                  Container(
+                    height: 390,
+                    width: 340,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      //color: config.lightRed,
+                    ),
+                    child: ListView.builder(
+                      itemCount:
+                      WC.isLeft.value
+                          ? Transactions[1].length
+                          : TopUps.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return
+                          WC.isLeft.value
+                              ? Container(
+                            margin: EdgeInsets.all(3),
+                            padding: EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,boxShadow: [
+                              BoxShadow(
+                                color: config.lightPrimaryColor, // Shadow color
+                                spreadRadius: 1, // How much the shadow spreads
+                                blurRadius: 2,   // The blur effect of the shadow
+                                offset: Offset(0.5, 0.5), // Offset in x and y direction
+                              ),
+                            ],
 
-                          ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    width: 90,
-                                    color: Colors.transparent,
-                                    child: Text(
-                                      Transactions[0][index], // Replace with your actual data
-                                      style: TextStyle(fontSize: 15, ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 30,
-                                    color: Colors.transparent,
-                                    child: Center(
+                            ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      width: 90,
+                                      color: Colors.transparent,
                                       child: Text(
-                                        Transactions[1][index], // Replace with your actual data
+                                        Transactions[0][index], // Replace with your actual data
                                         style: TextStyle(fontSize: 15, ),
                                       ),
                                     ),
-                                  ),
-                                  Text(
-                                    "08/08/2023", // Replace with your actual data
-                                    style: TextStyle(fontSize: 15, color: config.primaryColor),
-                                  ),
-                            ],
-                          ),
-                        )
-                            : Container(
-                          margin: EdgeInsets.all(3),
-                          padding: EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,boxShadow: [
-                            BoxShadow(
-                              color: config.lightPrimaryColor, // Shadow color
-                              spreadRadius: 1, // How much the shadow spreads
-                              blurRadius: 2,   // The blur effect of the shadow
-                              offset: Offset(0.5, 0.5), // Offset in x and y direction
+                                    Container(
+                                      width: 30,
+                                      color: Colors.transparent,
+                                      child: Center(
+                                        child: Text(
+                                          Transactions[1][index], // Replace with your actual data
+                                          style: TextStyle(fontSize: 15, ),
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      "08/08/2023", // Replace with your actual data
+                                      style: TextStyle(fontSize: 15, color: config.primaryColor),
+                                    ),
+                              ],
                             ),
-                          ],
-
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                TopUps[index], // Replace with your actual data
-                                style: TextStyle(fontSize: 15, ),
-                              ),
-                              Text(
-                                "08/08/2023", // Replace with your actual data
-                                style: TextStyle(fontSize: 15, color: config.primaryColor),
+                          )
+                              : Container(
+                            margin: EdgeInsets.all(3),
+                            padding: EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,boxShadow: [
+                              BoxShadow(
+                                color: config.lightPrimaryColor, // Shadow color
+                                spreadRadius: 1, // How much the shadow spreads
+                                blurRadius: 2,   // The blur effect of the shadow
+                                offset: Offset(0.5, 0.5), // Offset in x and y direction
                               ),
                             ],
-                          ),
-                        );
-                    },
-                  ),
-                )
+
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  TopUps[index], // Replace with your actual data
+                                  style: TextStyle(fontSize: 15, ),
+                                ),
+                                Text(
+                                  "08/08/2023", // Replace with your actual data
+                                  style: TextStyle(fontSize: 15, color: config.primaryColor),
+                                ),
+                              ],
+                            ),
+                          );
+                      },
+                    ),
+                  )
+              ),
             )
           ],
         ),
       ),
+    );
+  }
+  void _showInputDialog(BuildContext context, String instruction) {
+    Get.defaultDialog(
+      title: instruction,
+      content: TextField(
+        controller: _numberController,
+        keyboardType: TextInputType.number,
+      ),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              onTap: () => Get.back(),
+              child: Container(
+                child: Text('Cancel'),
+              ),
+            ),
+            //SizedBox(width: 20,),
+            GestureDetector(
+              onTap: (){
+                Get.back();
+                int enteredNumber = int.tryParse(_numberController.text) ?? 0;
+                print('Entered Number: $enteredNumber');
+              },
+              child: Container(
+                child: Text('Confirm'),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

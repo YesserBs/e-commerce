@@ -45,6 +45,7 @@ dependencies:
   firebase_auth: ^4.6.3
   cloud_firestore: ^4.8.2
   flutter_keyboard_visibility: ^5.4.1
+  sqflite: ^2.3.0
 
 
 dev_dependencies:
@@ -93,6 +94,9 @@ flutter:
      - family: OstrichSans
        fonts:
          - asset: assets/fonts/OstrichSans/OstrichSans-Black.otf
+     - family: Marcellus
+       fonts:
+         - asset: assets/fonts/Marcellus/Marcellus-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

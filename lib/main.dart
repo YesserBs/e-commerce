@@ -1,54 +1,118 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:myproj/config/configuration.dart';
-import 'package:myproj/main_settings/appPages.dart';
-import 'package:myproj/view/auth/auth.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 
-// Entry point of the application
-void main() async {
-  // Ensure that Flutter bindings are initialized
-  WidgetsFlutterBinding.ensureInitialized();
-
-  // Initialize Firebase services
-  await Firebase.initializeApp();
-
-  // Initialize GetStorage for local data storage
-  await GetStorage.init();
-
-  // Run the main application
+void main(){
   runApp(MyApp());
 }
 
-// Main application widget
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil for responsive design
-    ScreenUtil.init(context, designSize: Size(1080, 2340));
-
-    // Create the GetMaterialApp widget which is the root of the app
-    return GetMaterialApp(
-      // Set the initial route for the app to start from
-      initialRoute: auth(),
-
-      // Define the theme for the app
+    return MaterialApp(
+      title: 'Name Storage App',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: config.secondaryColor,
-        ),
+        primarySwatch: Colors.blue,
       ),
-
-      // Define the list of pages for the app navigation
-      getPages: AppPages.list,
-
-      // Hide the debug banner in the app
-      debugShowCheckedModeBanner: false,
+      home: MyHomePage(),
     );
   }
 }
-//localisation for translating
-//SQLite
+
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  late TextEditingController _nameController;
+  late String _storedName;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController();
+    _storedName = "";
+    // Load the stored name from the database
+    _loadStoredName();
+  }
+
+  void _loadStoredName() async {
+    final Database database = await openDatabase(
+      join(await getDatabasesPath(), 'name_database.db'),
+      onCreate: (db, version) {
+        return db.execute(
+          'CREATE TABLE names(id INTEGER PRIMARY KEY, name TEXT)',
+        );
+      },
+      version: 1,
+    );
+
+    final List<Map<String, dynamic>> maps = await database.query('names', limit: 1);
+    if (maps.isNotEmpty) {
+      setState(() {
+        _storedName = maps.first['name'];
+      });
+    }
+  }
+
+  void _saveName(String newName) async {
+    final Database database = await openDatabase(
+      join(await getDatabasesPath(), 'name_database.db'),
+      version: 1,
+    );
+
+    await database.delete('names');
+    await database.insert(
+      'names',
+      {'id': 1, 'name': newName},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+
+    setState(() {
+      _storedName = newName;
+    });
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Your text:',
+              style: TextStyle(fontSize: 20),
+            ),
+            SizedBox(height: 10),
+            Text(
+              _storedName,
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            TextFormField(
+              controller: _nameController,
+              decoration: InputDecoration(
+                labelText: 'Enter your name',
+              ),
+            ),
+            SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                _saveName(_nameController.text);
+              },
+              child: Text('Save'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
